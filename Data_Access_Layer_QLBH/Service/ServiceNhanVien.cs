@@ -23,14 +23,14 @@ namespace Data_Access_Layer_QLBH.Service
 
         public List<Nhanvien> GetNhanviens()
         {
-            return _lstNhanVien ;
+            return _lstNhanVien;
         }
 
 
 
         public string Add_NhanVien(Nhanvien nv)
         {
-            nv.Id = _lstNhanVien.Max(c=>c.Id) + 1;
+            nv.Id = _lstNhanVien.Max(c => c.Id) + 1;
             nv.MaNv = "NV" + nv.Id;
             if (_lstNhanVien.Any(nc => nc.Id == nv.Id) == false)
             {
@@ -45,7 +45,8 @@ namespace Data_Access_Layer_QLBH.Service
 
         public void Edit_NhanVien(Nhanvien nv)
         {
-            _lstNhanVien[_lstNhanVien.FindIndex(c => c.MaNv == nv.MaNv)] = nv;
+            int index = _lstNhanVien.FindIndex(c => c.MaNv ==nv.MaNv);
+            _lstNhanVien[index] = nv;
             DB.Nhanviens.Update(nv);
         }
 

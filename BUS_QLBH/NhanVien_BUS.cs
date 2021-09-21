@@ -39,13 +39,14 @@ namespace Business_Logic_Layer_QLBH
             if (LoadData().Any(c => c.MaNv == key))
             {
                 Nhanvien nvedit = new Nhanvien();
+                nvedit.Id = nv.Id;
                 nvedit.MaNv = key;
                 nvedit.Email = nv.Email;
                 nvedit.TenNv = nv.TenNv;
                 nvedit.DiaChi = nv.DiaChi;
                 nvedit.VaiTro = nv.VaiTro;
                 nvedit.TinhTrang = nv.TinhTrang;
-                nvedit.MaNv = nv.MatKhau;
+                nvedit.MatKhau = nv.MatKhau;
                 pt.Edit_NhanVien(nvedit);
                 return "Sửa Thành Công!";
             }
