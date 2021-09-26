@@ -12,12 +12,12 @@ using Business_Logic_Layer_QLBH;
 
 namespace GUI_QLBH
 {
-    public partial class frmNhanVien : Form
+    public partial class frmQuantri : Form
     {
         private string mess = " Thông báo của UBND Tinh VĨnh Phúc!";
         private string IDwhenClick;
 
-        public frmNhanVien()
+        public frmQuantri()
         {
             InitializeComponent();
             LoadDataBase();
