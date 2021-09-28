@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Business_Logic_Layer_QLBH;
+using Data_Access_Layer_QLBH.Models;
 
 namespace GUI_QLBH
 {
@@ -16,7 +17,7 @@ namespace GUI_QLBH
     {
         private string mess = " Thông báo của UBND Tinh VĨnh Phúc!";
         private string IDwhenClick;
-
+        private NhanVien_BUS nv = new NhanVien_BUS();
         public frmQuantri()
         {
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace GUI_QLBH
             DGV_lisst.Columns[4].Name = "Trạng Thái";
             DGV_lisst.Columns[5].Name = "Mật Khẩu";
             DGV_lisst.Rows.Clear();
-            foreach (var x in NhanVien_BUS.LoadData())
+            foreach (var x in nv.LoadData())
             {
                 DGV_lisst.Rows.Add(x.Email, x.TenNv, x.DiaChi, x.VaiTro == 1 ? "Nhân Viên" : x.VaiTro == 2 ? "Quản trị" : "", x.TinhTrang == 0 ? "Ngừng Hoạt Động" : x.TinhTrang == 1 ? "Hoạt Động" : "", x.MatKhau);
             }
@@ -41,7 +42,7 @@ namespace GUI_QLBH
 
         private void btn_them_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(NhanVien_BUS.Add_bus(NhanVien_BUS.nv_bus(txt_Email.Text, txt_name.Text, txt_Address.Text, rbtn_NhanVien.Checked ? 1 : 2,
+            MessageBox.Show(nv.Add_bus(nv.nv_bus(txt_Email.Text, txt_name.Text, txt_Address.Text, rbtn_NhanVien.Checked ? 1 : 2,
                 Cbx_HoatDong.Checked ? 1 : 0, txt_PassWord.Text)), mess);
             LoadDataBase();
         }
@@ -49,7 +50,7 @@ namespace GUI_QLBH
         private void DGV_lisst_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int rowindex = e.RowIndex;
-            if (rowindex == NhanVien_BUS.LoadData().Count /*|| rowindex == 0*/) return;
+            if (rowindex == nv.LoadData().Count /*|| rowindex == 0*/) return;
             txt_Email.Text = DGV_lisst.Rows[rowindex].Cells[0].Value.ToString();
             txt_name.Text = DGV_lisst.Rows[rowindex].Cells[1].Value.ToString();
             txt_Address.Text = DGV_lisst.Rows[rowindex].Cells[2].Value.ToString();
@@ -58,26 +59,26 @@ namespace GUI_QLBH
             Cbx_HoatDong.Checked = DGV_lisst.Rows[rowindex].Cells[4].Value.ToString() == "Hoạt Động" ? true : false;
             cbx_KhongHD.Checked = DGV_lisst.Rows[rowindex].Cells[4].Value.ToString() == "Ngừng Hoạt Động" ? true : false;
             txt_PassWord.Text = DGV_lisst.Rows[rowindex].Cells[5].Value.ToString();
-            IDwhenClick = NhanVien_BUS.LoadData().Where(c => c.Email == txt_Email.Text).Select(c => c.MaNv).FirstOrDefault();
+            IDwhenClick = nv.LoadData().Where(c => c.Email == txt_Email.Text).Select(c => c.MaNv).FirstOrDefault();
         }
 
         private void btn_Edit_Click(object sender, EventArgs e)
         {
 
-            MessageBox.Show(NhanVien_BUS.Edit_bus(IDwhenClick, NhanVien_BUS.nv_bus(txt_Email.Text, txt_name.Text, txt_Address.Text, rbtn_NhanVien.Checked ? 1 : 2,
+            MessageBox.Show(nv.Edit_bus(IDwhenClick, nv.nv_bus(txt_Email.Text, txt_name.Text, txt_Address.Text, rbtn_NhanVien.Checked ? 1 : 2,
                 Cbx_HoatDong.Checked ? 1 : 0, txt_PassWord.Text)), mess);
             LoadDataBase();
         }
 
         private void btn_delete_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(NhanVien_BUS.Remove_bus(IDwhenClick), mess);
+            MessageBox.Show(nv.Remove_bus(IDwhenClick), mess);
             LoadDataBase();
         }
 
         private void btn_Save_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(NhanVien_BUS.SAVE_DB(), mess);
+            MessageBox.Show(nv.SAVE_DB(), mess);
         }
 
         private void btn_List_Click(object sender, EventArgs e)
@@ -95,7 +96,7 @@ namespace GUI_QLBH
             DGV_lisst.Columns[4].Name = "Trạng Thái";
             DGV_lisst.Columns[5].Name = "Mật Khẩu";
             DGV_lisst.Rows.Clear();
-            foreach (var x in NhanVien_BUS.LoadData().Where(c => c.Email == txt_Search.Text))
+            foreach (var x in nv.LoadData().Where(c => c.Email == txt_Search.Text))
             {
                 DGV_lisst.Rows.Add(x.Email, x.TenNv, x.DiaChi, x.VaiTro == 1 ? "Nhân Viên" : x.VaiTro == 2 ? "Quản trị" : "", x.TinhTrang == 0 ? "Ngừng Hoạt Động" : x.TinhTrang == 1 ? "Hoạt Động" : "", x.MatKhau);
             }

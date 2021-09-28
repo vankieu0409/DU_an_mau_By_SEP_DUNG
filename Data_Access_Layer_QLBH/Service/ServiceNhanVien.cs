@@ -45,9 +45,8 @@ namespace Data_Access_Layer_QLBH.Service
 
         public void Edit_NhanVien(Nhanvien nv)
         {
-            int index = _lstNhanVien.FindIndex(c => c.MaNv ==nv.MaNv);
-            _lstNhanVien[index] = nv;
-            DB.Nhanviens.Update(nv);
+            int index = _lstNhanVien.FindIndex(c => c.MaNv == nv.MaNv);
+            DB.Nhanviens.Update(_lstNhanVien[index]);
         }
 
         public void Delete_NhanVien(Nhanvien nv)

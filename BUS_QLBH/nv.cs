@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Business_Logic_Layer_QLBH
 {
-    public static class NhanVien_BUS
+    public  class NhanVien_BUS
     {
-        private static List<Nhanvien> _list;
-        private static ServiceNhanVien pt = new ServiceNhanVien();
+        private  List<Nhanvien> _list;
+        private  ServiceNhanVien pt = new ServiceNhanVien();
 
-        public static Nhanvien nv_bus(string email, string tenNv, string diaChi, int vaitro, int tinhTrang, string matKhau)
+        public  Nhanvien nv_bus(string email, string tenNv, string diaChi, int vaitro, int tinhTrang, string matKhau)
         {
             Nhanvien nv = new Nhanvien();
             nv.Email = email;
@@ -25,16 +25,16 @@ namespace Business_Logic_Layer_QLBH
             nv.MatKhau = matKhau;
             return nv;
         }
-        public static List<Nhanvien> LoadData()
+        public  List<Nhanvien> LoadData()
         {
             return _list = pt.GetNhanviens();
         }
 
-        public static string Add_bus(Nhanvien nv)
+        public string Add_bus(Nhanvien nv)
         {
             return pt.Add_NhanVien(nv);
         }
-        public static string Edit_bus(string key, Nhanvien nv)
+        public string Edit_bus(string key, Nhanvien nv)
         {
             if (LoadData().Any(c => c.MaNv == key))
             {
@@ -56,7 +56,7 @@ namespace Business_Logic_Layer_QLBH
             }
 
         }
-        public static string Remove_bus(string key)
+        public  string Remove_bus(string key)
         {
             if (LoadData().Any(c => c.MaNv == key))
             {
@@ -71,7 +71,7 @@ namespace Business_Logic_Layer_QLBH
             }
         }
 
-        public static string SAVE_DB()
+        public  string SAVE_DB()
         {
             try
             {
